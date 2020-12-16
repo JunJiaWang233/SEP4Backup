@@ -4,12 +4,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,6 +31,10 @@ public class HistoryFragment extends Fragment {
 
     private HistroyViewModel dashboardViewModel;
     private FragmentHistroyBinding binding;
+
+    private Spinner spinner;
+    private List<String> historyRecord;
+    private ArrayAdapter<String> adapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -46,7 +55,33 @@ public class HistoryFragment extends Fragment {
         measurementsList.add(new Measurements(5,5,5));
         MeasurementsAdapter adapter= new MeasurementsAdapter(measurementsList);
         binding.recycleView.setAdapter(adapter);
+        spinner = (Spinner)root.findViewById(R.id.locationInHistory);
+        initSpinner();
 
         return root;
+    }
+
+    public void initSpinner(){
+
+        historyRecord = new ArrayList<String>();
+        historyRecord.add("front");
+        historyRecord.add("Student Village");
+
+        adapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item,historyRecord);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+//
+            }
+        });
+
     }
 }

@@ -7,6 +7,8 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.sep4android.client.model.Measurements;
 import com.example.sep4android.client.model.User;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -14,14 +16,17 @@ import retrofit2.Response;
 public class ClientRepository {
     private static ClientRepository instance;
     private static Client client;
-    private  MutableLiveData<User> user;
-    private  MutableLiveData<Measurements> measurements;
+    private  MutableLiveData<User> userMutableLiveData;
+    private  MutableLiveData<Measurements> measurementsMutableLiveData;
+
+    private static List<Measurements> location1;
+    private static List<Measurements> location2;
 
 
 
     private ClientRepository(){
 
-        measurements= new MutableLiveData<>();
+        measurementsMutableLiveData= new MutableLiveData<>();
     }
 
     public static synchronized ClientRepository getInstance(){
@@ -41,7 +46,7 @@ public class ClientRepository {
         userCall.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                    user.setValue(response.body());
+                userMutableLiveData.setValue(response.body());
             }
 
             @Override
@@ -56,7 +61,7 @@ public class ClientRepository {
         call.enqueue(new Callback<Measurements>() {
             @Override
             public void onResponse(Call<Measurements> call, Response<Measurements> response) {
-                measurements.setValue(response.body());
+                measurementsMutableLiveData.setValue(response.body());
                 Log.e("measurement", response.body().toString());
             }
 
@@ -67,7 +72,7 @@ public class ClientRepository {
         });
     }
 
-    public MutableLiveData<Measurements> getMeasurements() {
-        return measurements;
+    public MutableLiveData<Measurements> getMeasurementsMutableLiveData() {
+        return measurementsMutableLiveData;
     }
 }

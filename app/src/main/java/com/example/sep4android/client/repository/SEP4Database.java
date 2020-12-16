@@ -6,10 +6,11 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.example.sep4android.client.model.AlertValue;
 import com.example.sep4android.client.model.Measurements;
 import com.example.sep4android.client.model.User;
 
-@Database(entities = {User.class, Measurements.class}, version = 1, exportSchema = false)
+@Database(entities = {User.class, Measurements.class, AlertValue.class}, version = 3, exportSchema = false)
 public abstract class SEP4Database extends RoomDatabase {
     private static SEP4Database instance;
     public static synchronized SEP4Database getInstance(Context context){
@@ -23,4 +24,6 @@ public abstract class SEP4Database extends RoomDatabase {
 
     public abstract UserDao userDao();
     public abstract MeasurementsDao measurementsDao();
+
+    public abstract AlertValueDao alertValueDao();
 }

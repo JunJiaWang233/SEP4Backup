@@ -18,9 +18,6 @@ public class CurrentDataViewModel extends AndroidViewModel {
         clientRepository= ClientRepository.getInstance();
     }
 
-    public MutableLiveData<Measurements> getMeasurementsMutableLiveData() {
-        return clientRepository.getMeasurements();
-    }
 
     public void getMeasurementsFromServer(String location){
         clientRepository.getMeasurementsFromServer(location);

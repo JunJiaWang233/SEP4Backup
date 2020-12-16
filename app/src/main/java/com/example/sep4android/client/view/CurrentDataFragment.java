@@ -17,34 +17,32 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.sep4android.R;
 import com.example.sep4android.client.viewModel.CurrentDataViewModel;
+import com.example.sep4android.client.viewModel.MainViewModel;
 import com.example.sep4android.databinding.FragmentCurrentdataBinding;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CurrentDataFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+public class CurrentDataFragment extends Fragment {
 
-    private CurrentDataViewModel currentDataViewModel;
     private FragmentCurrentdataBinding binding;
     private Spinner spinner;
     private ArrayAdapter<String>adapter;
     private List<String> currents;
-//    private List<String> currents ;
+    private MainViewModel mainViewModel;
 
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        currentDataViewModel =
-                new ViewModelProvider(getActivity()).get(CurrentDataViewModel.class);
-//        View root = inflater.inflate(R.layout.fragment_currentdata, container, false);
+
         binding= DataBindingUtil.inflate(inflater, R.layout.fragment_currentdata, container, false);
         View root= binding.getRoot();
-        binding.setCurrentDataViewModel(currentDataViewModel);
+        mainViewModel= new ViewModelProvider(getActivity()).get(MainViewModel.class);
+        binding.setMainViewModel(mainViewModel);
         binding.setLifecycleOwner(getActivity());
-
         spinner = (Spinner)root.findViewById(R.id.location);
-//        initSpinner();
+        initSpinner();
 
 
         return root;
@@ -54,7 +52,7 @@ public class CurrentDataFragment extends Fragment implements AdapterView.OnItemS
 
         currents = new ArrayList<String>();
         currents.add("front");
-        currents.add("Student Villiage");
+        currents.add("back");
 
         adapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item,currents);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -65,31 +63,18 @@ public class CurrentDataFragment extends Fragment implements AdapterView.OnItemS
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String location= adapter.getItem(position);
                 Toast.makeText(getContext(), "The selected location is"+location, Toast.LENGTH_SHORT).show();
-                if (location== "front"){
-                    currentDataViewModel.getMeasurementsFromServer(location);
-                }
+                mainViewModel.getMeasurementsMutableLiveDataFromServer(location);
 
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-//                currentDataViewModel.getMeasurementsFromServer("front");
+
             }
         });
 
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String location= adapter.getItem(position);
-        Toast.makeText(getContext(), location, Toast.LENGTH_SHORT).show();
-        currentDataViewModel.getMeasurementsFromServer(location);
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-        currentDataViewModel.getMeasurementsFromServer("front");
-    }
 
 
 
