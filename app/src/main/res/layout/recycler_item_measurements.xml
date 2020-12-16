@@ -11,27 +11,110 @@
             type="com.example.sep4android.client.view.MeasurementsAdapter" />
     </data>
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="160dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:id="@+id/card_overview"
+        android:foreground="?selectableItemBackground"
+        android:clickable="true">
 
-        <androidx.cardview.widget.CardView
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/card_view"
-            android:layout_gravity="center"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            card_view:cardCornerRadius="4dp"
-            card_view:cardBackgroundColor="@color/cardview_dark_background">
+            android:layout_height="wrap_content" >
 
-
-            <TextView
-                android:id="@+id/info_text"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@{String.valueOf(measurements.temperature)}"
-                android:textSize="30sp" />
-        </androidx.cardview.widget.CardView>
+                android:layout_height="wrap_content">
 
-    </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:gravity="top"
+                    android:text="Temperature:"
+                    android:hint="temperature"
+                    />
+                <TextView
+                    android:id="@+id/info_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:text="@{String.valueOf(measurements.temperature)}"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:hint="display temperature"
+                    ></TextView>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="52dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="Humidity:" />
+
+
+                <TextView
+                    android:id="@+id/info_humidity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="52dp"
+                    android:layout_marginBottom="16dp"
+                    android:hint="display humidity"
+                   />
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tvco2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="88dp"
+                    android:layout_marginEnd="16dp"
+                    android:autoLink="web"
+                    android:layout_marginStart="16dp"
+                    android:gravity="end|center_vertical"
+                    android:text="CO2:"/>
+
+                <TextView
+                    android:id="@+id/info_co2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="88dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="16dp"
+                    android:hint="display co2"
+                    android:text="" />
+
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+
 </layout>
